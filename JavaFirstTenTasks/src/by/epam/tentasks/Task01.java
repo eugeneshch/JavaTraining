@@ -10,8 +10,8 @@ package by.epam.tentasks;
 public class Task01 {
 
 	public static void main(String[] args) {
-		int num = 3714;
-	//	int num = 5160;
+	//	int num = 3714;
+		int num = 5160;
 	//	int num = 9446;
 	//	int num = 8017;
 	//	int num = 6325;
