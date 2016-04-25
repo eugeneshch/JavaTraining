@@ -10,8 +10,8 @@ package by.epam.tentasks;
 public class Task01 {
 
 	public static void main(String[] args) {
-	//	int num = 3714;
-		int num = 5160;
+		int num = 3714;
+	//	int num = 5160;
 	//	int num = 9446;
 	//	int num = 8017;
 	//	int num = 6325;
@@ -25,10 +25,7 @@ public class Task01 {
 		int num2 = num % 10;
 		num /= 10;
 		int num1 = num % 10;
-		boolean result = false;
-		if ((num1 + num2) == (num3 + num4)) {
-			result = true;
-		}
+		boolean result = ((num1 + num2) == (num3 + num4));
 		System.out.println(result);
 	}
 
