@@ -11,16 +11,16 @@ public class Main {
 		Controller controller = new Controller();
 		Request request;
 		
-	/*	request = new Request();
+		request = new Request();
 		request.setCommandName("CREATE_NOTEBOOK_COMMAND");
 		Response response = controller.doAction(request);
-		NoteBook noteBook = response.getNoteBook(); */
+		NoteBook noteBook = response.getNoteBook(); 
 		
-		request = new Request();
+	/*	request = new Request();
 		request.setCommandName("LOAD_NOTEBOOK_COMMAND");
 		request.setNoteBookName("FirstNoteBook.txt");
 		Response response = controller.doAction(request);
-		NoteBook noteBook = response.getNoteBook(); 
+		NoteBook noteBook = response.getNoteBook(); */
 		
 		request = new Request();
 		request.setCommandName("ADD_NOTE_COMMAND");

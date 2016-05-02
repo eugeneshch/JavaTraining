@@ -2,22 +2,39 @@ package by.epam.nb.dao.impl;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Properties;
 
 import by.epam.nb.bean.Note;
 import by.epam.nb.bean.NoteBook;
 import by.epam.nb.dao.UserDao;
+import by.epam.nb.start.Main;
 
 public class FileUserDao implements UserDao {
+	
+	private String repositoryPath;
 
-	private final String REPOSITORY_PATH = "G:/Test/";
+	{
+		String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(path + "../data/properties.txt");
+			Properties p = new Properties();
+			p.load(fis);
+			repositoryPath = p.getProperty("RepositoryPath");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	
 	@Override
 	public NoteBook loadNoteBook(String name) {
-		File file = new File(REPOSITORY_PATH + name);
+		File file = new File(repositoryPath + name);
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String str = br.readLine();
@@ -35,7 +52,7 @@ public class FileUserDao implements UserDao {
 
 	@Override
 	public void saveNoteBook(String name, NoteBook noteBook) {
-		File file = new File(REPOSITORY_PATH + name);
+		File file = new File(repositoryPath + name);
 		try {
 			PrintWriter pw = new PrintWriter(new FileWriter(file));
 			pw.println(noteBook.getCreationTime());
