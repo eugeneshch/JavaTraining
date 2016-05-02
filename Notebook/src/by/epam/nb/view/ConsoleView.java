@@ -1,11 +1,11 @@
-package by.epam.nb.service;
+package by.epam.nb.view;
 
 import java.util.List;
 
 import by.epam.nb.bean.Note;
 import by.epam.nb.bean.NoteBook;
 
-public interface PrinterService {
+public interface ConsoleView {
 	void print(Note note);
 	void print(Note... notes);
 	void print(List<Note> listNotes);

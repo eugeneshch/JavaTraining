@@ -1,4 +1,4 @@
-package by.epam.nb.service.impl;
+package by.epam.nb.view.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -6,9 +6,9 @@ import java.util.List;
 
 import by.epam.nb.bean.Note;
 import by.epam.nb.bean.NoteBook;
-import by.epam.nb.service.PrinterService;
+import by.epam.nb.view.ConsoleView;
 
-public class NoteBookConsoleView implements PrinterService {
+public class NoteBookConsoleView implements ConsoleView {
 
 	@Override
 	public void print(Note note) {
