@@ -7,7 +7,9 @@ import by.epam.nb.bean.Note;
 import by.epam.nb.bean.NoteBook;
 import by.epam.nb.dao.DAOFactory;
 import by.epam.nb.dao.UserDao;
+import by.epam.nb.dao.exceptions.DaoException;
 import by.epam.nb.service.ProviderService;
+import by.epam.nb.service.exceptions.ServiceException;
 
 public class NoteBookProvider implements ProviderService {
 
@@ -44,17 +46,25 @@ public class NoteBookProvider implements ProviderService {
 	}
 
 	@Override
-	public NoteBook loadNotebook(String name) {
+	public NoteBook loadNotebook(String name) throws ServiceException {
 		DAOFactory factory = DAOFactory.getInstance();
 		UserDao userDao = factory.getUserDao();
-		return userDao.loadNoteBook(name);
+		try {
+			return userDao.loadNoteBook(name);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
 	}
 
 	@Override
-	public void saveNotebook(String name, NoteBook noteBook) {
+	public void saveNotebook(String name, NoteBook noteBook) throws ServiceException {
 		DAOFactory factory = DAOFactory.getInstance();
 		UserDao userDao = factory.getUserDao();
-		userDao.saveNoteBook(name, noteBook);
+		try {
+			userDao.saveNoteBook(name, noteBook);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
 	}
 
 }

@@ -12,13 +12,14 @@ import java.util.Properties;
 import by.epam.nb.bean.Note;
 import by.epam.nb.bean.NoteBook;
 import by.epam.nb.dao.UserDao;
+import by.epam.nb.dao.exceptions.DaoException;
 import by.epam.nb.start.Main;
 
 public class FileUserDao implements UserDao {
 	
 	private String repositoryPath;
 
-	{
+	private void readProperties() throws DaoException {
 		String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		FileInputStream fis = null;
 		try {
@@ -27,40 +28,38 @@ public class FileUserDao implements UserDao {
 			p.load(fis);
 			repositoryPath = p.getProperty("RepositoryPath");
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new DaoException(e);
 		}
-
 	}
 	
 	@Override
-	public NoteBook loadNoteBook(String name) {
+	public NoteBook loadNoteBook(String name) throws DaoException {
+		readProperties();
 		File file = new File(repositoryPath + name);
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(file));
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			String str = br.readLine();
 			NoteBook noteBook = new NoteBook(Long.parseLong(str));
 			while ((str = br.readLine()) != null) {
 				long time = Long.parseLong(str.substring(0, str.indexOf(" ")));
 				noteBook.addNote(new Note(str.substring(str.indexOf(" ") + 1), time));
 				}
-			br.close();
 			return noteBook;
 		} catch (IOException e) {
-			return null;
-		} 		
+			throw new DaoException(e);
+		}
 	}
 
 	@Override
-	public void saveNoteBook(String name, NoteBook noteBook) {
+	public void saveNoteBook(String name, NoteBook noteBook) throws DaoException {
+		readProperties();
 		File file = new File(repositoryPath + name);
-		try {
-			PrintWriter pw = new PrintWriter(new FileWriter(file));
+		try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
 			pw.println(noteBook.getCreationTime());
 			for (Note note : noteBook.getNote()) {
 				pw.println(note.getTime() + " " + note.getText());
 			}
-			pw.close();
 		} catch (IOException e) {
+			throw new DaoException(e);
 		}		
 	}
 }
