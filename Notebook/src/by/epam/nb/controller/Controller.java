@@ -26,7 +26,7 @@ public class Controller {
 			response.setErrorMessage(e.getMessage());
 		}
 		//rootLogger.info(request.getCommandName() + " Error message: " + response.getErrorMessage());
-		log.debug(request.getCommandName() + " Error message: " + response.getErrorMessage());
+		log.error(request.getCommandName() + " Error message: " + response.getErrorMessage());
 		return response;
 	}	
 }

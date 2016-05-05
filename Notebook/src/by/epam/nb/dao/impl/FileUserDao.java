@@ -21,9 +21,7 @@ public class FileUserDao implements UserDao {
 
 	private void readProperties() throws DaoException {
 		String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream(path + "../data/properties.txt");
+		try (FileInputStream fis = new FileInputStream(path + "../data/properties.txt")) {
 			Properties p = new Properties();
 			p.load(fis);
 			repositoryPath = p.getProperty("RepositoryPath");
