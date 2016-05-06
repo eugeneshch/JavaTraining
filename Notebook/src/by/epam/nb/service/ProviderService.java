@@ -4,7 +4,7 @@ import java.util.List;
 
 import by.epam.nb.bean.Note;
 import by.epam.nb.bean.NoteBook;
-import by.epam.nb.service.exceptions.ServiceException;
+import by.epam.nb.service.exception.ServiceException;
 
 public interface ProviderService {
 	void addNote(NoteBook noteBook, String noteText);

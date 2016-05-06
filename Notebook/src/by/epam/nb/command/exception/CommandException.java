@@ -1,4 +1,4 @@
-package by.epam.nb.command.exceptions;
+package by.epam.nb.command.exception;
 
 public class CommandException extends Exception {
 	

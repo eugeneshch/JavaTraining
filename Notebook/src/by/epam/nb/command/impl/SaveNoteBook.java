@@ -3,10 +3,10 @@ package by.epam.nb.command.impl;
 import by.epam.nb.bean.Request;
 import by.epam.nb.bean.Response;
 import by.epam.nb.command.Command;
-import by.epam.nb.command.exceptions.CommandException;
+import by.epam.nb.command.exception.CommandException;
 import by.epam.nb.service.ProviderService;
 import by.epam.nb.service.ServiceFactory;
-import by.epam.nb.service.exceptions.ServiceException;
+import by.epam.nb.service.exception.ServiceException;
 
 public class SaveNoteBook implements Command {
 

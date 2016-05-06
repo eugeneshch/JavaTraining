@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import by.epam.nb.bean.Request;
 import by.epam.nb.bean.Response;
 import by.epam.nb.command.Command;
-import by.epam.nb.command.exceptions.CommandException;
+import by.epam.nb.command.exception.CommandException;
 
 public class Controller {
 	private final CommandHelper helper = new CommandHelper();

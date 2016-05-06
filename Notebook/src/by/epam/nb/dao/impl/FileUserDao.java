@@ -12,7 +12,7 @@ import java.util.Properties;
 import by.epam.nb.bean.Note;
 import by.epam.nb.bean.NoteBook;
 import by.epam.nb.dao.UserDao;
-import by.epam.nb.dao.exceptions.DaoException;
+import by.epam.nb.dao.exception.DaoException;
 import by.epam.nb.start.Main;
 
 public class FileUserDao implements UserDao {

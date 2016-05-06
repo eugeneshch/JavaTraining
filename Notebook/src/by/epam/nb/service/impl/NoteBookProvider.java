@@ -7,9 +7,9 @@ import by.epam.nb.bean.Note;
 import by.epam.nb.bean.NoteBook;
 import by.epam.nb.dao.DAOFactory;
 import by.epam.nb.dao.UserDao;
-import by.epam.nb.dao.exceptions.DaoException;
+import by.epam.nb.dao.exception.DaoException;
 import by.epam.nb.service.ProviderService;
-import by.epam.nb.service.exceptions.ServiceException;
+import by.epam.nb.service.exception.ServiceException;
 
 public class NoteBookProvider implements ProviderService {
 
