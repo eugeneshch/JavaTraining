@@ -4,6 +4,8 @@ import by.epam.nb.bean.NoteBook;
 import by.epam.nb.bean.Request;
 import by.epam.nb.bean.Response;
 import by.epam.nb.controller.Controller;
+import by.epam.nb.view.ConsoleView;
+import by.epam.nb.view.ViewFactory;
 
 public class Main {
 
@@ -35,10 +37,9 @@ public class Main {
 		request.setNoteText("Second note");
 		response = controller.doAction(request); 
 		
-		request = new Request();
-		request.setCommandName("PRINT_COMMAND");
-		request.setNoteBook(noteBook);
-		response = controller.doAction(request);
+		ViewFactory factory = ViewFactory.getInstance();
+		ConsoleView printer = factory.getConsoleView();
+		printer.print(noteBook);
 		
 		request = new Request();
 		request.setCommandName("SAVE_NOTEBOOK_COMMAND");

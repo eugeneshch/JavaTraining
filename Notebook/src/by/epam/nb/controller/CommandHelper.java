@@ -9,7 +9,6 @@ import by.epam.nb.command.impl.CreateNoteBook;
 import by.epam.nb.command.impl.FindByNoteDate;
 import by.epam.nb.command.impl.FindByNoteText;
 import by.epam.nb.command.impl.LoadNoteBook;
-import by.epam.nb.command.impl.Print;
 import by.epam.nb.command.impl.SaveNoteBook;
 
 public class CommandHelper {
@@ -20,7 +19,6 @@ public class CommandHelper {
 		commands.put(CommandName.ADD_NOTE_COMMAND, new AddNote());
 		commands.put(CommandName.FIND_BY_NOTE_TEXT_COMMAND, new FindByNoteText());
 		commands.put(CommandName.FIND_BY_NOTE_DATE_COMMAND, new FindByNoteDate());
-		commands.put(CommandName.PRINT_COMMAND, new Print());
 		commands.put(CommandName.SAVE_NOTEBOOK_COMMAND, new SaveNoteBook());
 		commands.put(CommandName.LOAD_NOTEBOOK_COMMAND, new LoadNoteBook());
 	}
