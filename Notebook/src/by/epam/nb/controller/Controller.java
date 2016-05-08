@@ -24,6 +24,7 @@ public class Controller {
 		} catch (CommandException e) {
 			response = new Response();
 			response.setErrorMessage(e.getMessage());
+			e.printStackTrace();
 		}
 		//rootLogger.info(request.getCommandName() + " Error message: " + response.getErrorMessage());
 		log.error(request.getCommandName() + " Error message: " + response.getErrorMessage());

@@ -40,7 +40,7 @@ public class FileUserDao implements UserDao {
 			while ((str = br.readLine()) != null) {
 				long time = Long.parseLong(str.substring(0, str.indexOf(" ")));
 				noteBook.addNote(new Note(str.substring(str.indexOf(" ") + 1), time));
-				}
+			}
 			return noteBook;
 		} catch (IOException e) {
 			throw new DaoException(e);

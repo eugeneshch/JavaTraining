@@ -21,9 +21,9 @@ public class Main {
 		
 	/*	request = new Request();
 		request.setCommandName("LOAD_NOTEBOOK_COMMAND");
-		request.setNoteBookName("FirstNoteBook.txt");
-		Response response = controller.doAction(request);
-		NoteBook noteBook = response.getNoteBook(); */
+		request.setNoteBookName("SecondNoteBook.txt");
+		response = controller.doAction(request);
+		noteBook = response.getNoteBook(); */
 		
 		request = new Request();
 		request.setCommandName("ADD_NOTE_COMMAND");
@@ -44,7 +44,7 @@ public class Main {
 		request = new Request();
 		request.setCommandName("SAVE_NOTEBOOK_COMMAND");
 		request.setNoteBook(noteBook);
-		request.setNoteBookName("FirstNoteBook.txt");
+		request.setNoteBookName("ThirdNoteBook.txt");
 		response = controller.doAction(request); 
 	}
 
