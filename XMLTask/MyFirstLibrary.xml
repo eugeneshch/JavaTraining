@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lib:libraries xmlns:lib="http://www.epam.com/MyLibrary" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.epam.com/MyLibrary MyLibrary.xsd">
+	<fictionLibrary>
+		<book id="1" remainingCopies="0">
+			<title>Interesting book</title>
+			<author>Isaac Asimov</author>
+			<year>1960</year>
+			<readers>
+				<reader>
+					<fname>Ivan</fname>
+					<lname>Ivanov</lname>
+					<phone>+375 29 555-55-55</phone>
+				</reader>
+				<reader>
+					<fname>Petr</fname>
+					<lname>Petrov</lname>
+					<phone>+375 25 666-66-66</phone>
+				</reader>
+				<reader>
+					<fname>Sidor</fname>
+					<lname>Sidorov</lname>
+					<phone>8 017 777-77-77</phone>
+				</reader>
+			</readers>
+		</book>
+		<book id="2" remainingCopies="25">
+			<title>Boring book</title>
+			<author>Lev Tolstoi</author>
+			<year>1870</year>
+			<readers>
+				<reader>
+					<fname>Lev</fname>
+					<lname>Tolstoi</lname>
+					<phone>-</phone>
+				</reader>
+			</readers>
+		</book>
+	</fictionLibrary>
+	<scientificLibrary>
+		<book id="3" remainingCopies="3">
+			<title>Java book</title>
+			<author>Unknown author</author>
+			<year>2015</year>
+			<readers>
+				<reader>
+					<fname>Petr</fname>
+					<lname>Petrov</lname>
+					<phone>+375 25 666-66-66</phone>
+				</reader>
+			</readers>
+		</book>	
+		<book id="4" remainingCopies="2">
+			<title>Another Java book</title>
+			<author>Unknown author</author>
+			<year>2012</year>
+			<readers>
+			</readers>
+		</book>	
+	</scientificLibrary>
+</lib:libraries>

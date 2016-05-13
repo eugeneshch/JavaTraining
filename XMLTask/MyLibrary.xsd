@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.epam.com/MyLibrary" xmlns:tns="http://www.epam.com/MyLibrary">
+    <element name="libraries">
+    	<complexType>
+    		<sequence>
+    			<element name="fictionLibrary" type="tns:Library" />
+    			<element name="scientificLibrary" type="tns:Library" />
+    		</sequence>
+    	</complexType>
+    </element>
+    <simpleType name="LetterType">
+    	<restriction base="string">
+    		<pattern value="([a-zA-Z])+" />
+    	</restriction>
+    </simpleType>
+    <simpleType name="LetterSpaceType">
+    	<restriction base="string">
+    		<pattern value="([a-zA-Z\s])+" />
+    	</restriction>
+    </simpleType>
+    <simpleType name="PhoneType">
+    	<restriction base="string">
+    		<pattern value="([0-9\+\-\s])+" />
+    	</restriction>
+    </simpleType>
+    <complexType name="Library">
+    	<sequence>
+    		<element name="book" type="tns:Book" minOccurs="1" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+    <complexType name="Book">
+    	<sequence>
+    		<element name="title" type="string"></element>
+    		<element name="author" type="tns:LetterSpaceType"></element>
+    		<element name="year" type="gYear"></element>
+    		<element name="readers" type="tns:Readers"></element>
+    	</sequence>
+    	<attribute name="id" type="unsignedInt" use="required" />
+    	<attribute name="remainingCopies" type="unsignedByte" use="required" />
+    </complexType>
+    <complexType name="Readers">
+    	<sequence>
+    		<element name="reader" type="tns:Reader" minOccurs="0" maxOccurs="unbounded" />
+    	</sequence>	
+  	</complexType>
+  	<complexType name="Reader">
+  		<sequence>
+    		<element name="fname" type="tns:LetterType"></element>
+    		<element name="lname" type="tns:LetterType"></element>
+    		<element name="phone" type="tns:PhoneType"></element>
+    	</sequence>
+  	</complexType>
+</schema>
