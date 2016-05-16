@@ -1,5 +1,7 @@
 package by.epam.hotel.service;
 
-public interface ClientService {
+import by.epam.hotel.service.exception.ServiceException;
 
+public interface ClientService {
+	int authorization(String login, String password) throws ServiceException;
 }
