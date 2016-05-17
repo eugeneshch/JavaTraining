@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import by.epam.hotel.bean.Guest;
 import by.epam.hotel.dao.CommonDao;
 import by.epam.hotel.dao.exception.DaoException;
 import by.epam.hotel.util.connectionpool.ConnectionPool;
@@ -14,7 +15,7 @@ public class SQLCommonDao implements CommonDao {
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 	
 	@Override
-	public int authorization(String login, String password) throws DaoException {
+	public int authorize(String login, String password) throws DaoException {
 		Connection con;
 		try {
 			con = connectionPool.takeConnection();
@@ -22,7 +23,7 @@ public class SQLCommonDao implements CommonDao {
 			String query = "SELECT `u_role` FROM `users` WHERE `u_login`= '" + login + 
 			"' AND `u_password`= '" + password + "'";
 			ResultSet resultSet = statement.executeQuery(query);
-			int role = 0; // unauthorized
+			int role = -1; // unauthorized
 			if (resultSet.next()) {
 				role = resultSet.getInt("u_role");
 			}
@@ -31,5 +32,24 @@ public class SQLCommonDao implements CommonDao {
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new DaoException(e);
 		}
+	}
+
+	@Override
+	public void register(String login, String password, String email, Guest guest) throws DaoException {
+		Connection con;
+		try {
+			con = connectionPool.takeConnection();
+			Statement statement = con.createStatement();
+			String update = "INSERT INTO `users` (`u_login`, `u_password`, `u_email`, `u_role`) VALUES ('"
+			+ login + "', '" + password + "', '" + email + "', '0')";
+			statement.executeUpdate(update);
+			update = "INSERT INTO `guests` (`g_id`, `g_fname`, `g_lname`, `g_phone`) VALUES " 
+			+ "((SELECT `u_id` FROM `users` WHERE `u_login`= '" + login + "'), '"
+			+ guest.getFName() + "', '" + guest.getLName() + "', '" + guest.getPhone() + "')";
+			statement.executeUpdate(update);
+			connectionPool.closeConnection(con, statement);
+		} catch (ConnectionPoolException | SQLException e) {
+			throw new DaoException(e);
+		}	
 	}
 }

@@ -10,4 +10,5 @@ public interface UserDao {
 	List<Integer> findAvailableRoomsByDate(Date date_from, Date date_to) throws DaoException;
 	List<Date[]> showRoomBookings(int room_number) throws DaoException;
 	void bookRoom(String user_name, int room_number, Date date_from, Date date_to) throws DaoException;
+	void unBookRoom(String user_name, int room_number, Date date_from) throws DaoException;
 }

@@ -41,8 +41,8 @@ public class SQLUserDao implements UserDao {
 		try {
 			con = connectionPool.takeConnection();
 			Statement statement = con.createStatement();
-			String query = "SELECT `r_number` FROM `rooms` WHERE `r_id` <> (SELECT `room_id` FROM `bookings` WHERE " 
-			+ "`date_from` <= '" + date_to + "' AND `date_to` >= '" + date_from;
+			String query = "SELECT `r_number` FROM `rooms` WHERE `r_id` NOT IN (SELECT `room_id` FROM `bookings` WHERE " 
+			+ "`date_from` <= '" + date_to + "' AND `date_to` >= '" + date_from + "')";
 			ResultSet resultSet = statement.executeQuery(query);
 			List<Integer> room_nums = new ArrayList<Integer>();
 			while (resultSet.next()) {
@@ -62,7 +62,7 @@ public class SQLUserDao implements UserDao {
 			con = connectionPool.takeConnection();
 			Statement statement = con.createStatement();
 			String query = "SELECT `date_from`, `date_to` FROM `bookings` WHERE `room_id` = "
-			+ "(SELECT `r_id` FROM `rooms` WHERE `r_number` = '" + room_number + "'";
+			+ "(SELECT `r_id` FROM `rooms` WHERE `r_number` = '" + room_number + "')";
 			ResultSet resultSet = statement.executeQuery(query);
 			List<Date[]> date_bookings = new ArrayList<Date[]>();
 			while (resultSet.next()) {
@@ -84,11 +84,27 @@ public class SQLUserDao implements UserDao {
 			Statement statement = con.createStatement();
 			String update = "INSERT INTO `bookings` (`date_from`, `date_to`, `room_id`, `guest_id`) VALUES ('"
 			+ date_from + "', '" + date_to + "', (SELECT `r_id` FROM `rooms` WHERE `r_number` = '" + room_number
-			+ "'), (SELECT `u_id` FROM `users` WHERE `u_login` = '" + user_name + "')";
+			+ "'), (SELECT `u_id` FROM `users` WHERE `u_login` = '" + user_name + "'))";
+			System.out.println(update);
 			statement.executeUpdate(update);
 			connectionPool.closeConnection(con, statement);
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new DaoException(e);
 		}
+	}
+	
+	@Override
+	public void unBookRoom(String user_name, int room_number, Date date_from) throws DaoException {
+		Connection con;
+		try {
+			con = connectionPool.takeConnection();
+			Statement statement = con.createStatement();
+			String update = "DELETE FROM `bookings` WHERE `guest_id` = (SELECT `u_id` FROM `users` WHERE `u_login` = '" + user_name
+			+ "') AND `room_id` = (SELECT `r_id` FROM `rooms` WHERE `r_number` = '" + room_number + "') AND `date_from` = '" + date_from + "'";
+			statement.executeUpdate(update);
+			connectionPool.closeConnection(con, statement);
+		} catch (ConnectionPoolException | SQLException e) {
+			throw new DaoException(e);
+		}	
 	}
 }

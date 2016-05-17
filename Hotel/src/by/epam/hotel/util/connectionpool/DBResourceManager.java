@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 public class DBResourceManager {
 	private final static DBResourceManager instance = new DBResourceManager();
-	private ResourceBundle bundle =	ResourceBundle.getBundle("by.epam.nb.util.connectionpool.db");
+	private ResourceBundle bundle =	ResourceBundle.getBundle("by.epam.hotel.util.connectionpool.db");
 	
 	public static DBResourceManager getInstance() {
 		return instance;

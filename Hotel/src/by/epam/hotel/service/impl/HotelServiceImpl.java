@@ -3,6 +3,7 @@ package by.epam.hotel.service.impl;
 import java.sql.Date;
 import java.util.List;
 
+import by.epam.hotel.bean.Guest;
 import by.epam.hotel.dao.AdminDao;
 import by.epam.hotel.dao.DAOFactory;
 import by.epam.hotel.dao.UserDao;
@@ -55,9 +56,20 @@ public class HotelServiceImpl implements HotelService {
 			throw new ServiceException(e);
 		}
 	}
+	
+	@Override
+	public void unBookRoom(String user_name, int room_number, Date date_from) throws ServiceException {
+		DAOFactory factory = DAOFactory.getInstance();
+		UserDao userDao = factory.getUserDao();
+		try {
+			userDao.unBookRoom(user_name, room_number, date_from);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
 
 	@Override
-	public String showGuestInfo(int room_number, Date date) throws ServiceException {
+	public Guest showGuestInfo(int room_number, Date date) throws ServiceException {
 		DAOFactory factory = DAOFactory.getInstance();
 		AdminDao adminDao = factory.getAdminDao();
 		try {
@@ -66,5 +78,4 @@ public class HotelServiceImpl implements HotelService {
 			throw new ServiceException(e);
 		}
 	}
-
 }
