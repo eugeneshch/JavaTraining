@@ -111,7 +111,8 @@ public class ServiceImplTest {
 	@DataProvider
 	public Object[][] booking_dates() {
 		return new Object[][] {
-	    new Object[] { 102, Arrays.asList()},
+		new Object[] { 101, Arrays.asList()},
+		new Object[] { 102, Arrays.asList()},
 	    new Object[] { 103, Arrays.asList()},
 	    new Object[] { 104, Arrays.asList()},
 	    new Object[] { 105, Arrays.asList()},
@@ -120,7 +121,12 @@ public class ServiceImplTest {
 	
 	@Test(dataProvider = "booking_dates")
 	public void showRoomBookings(int room_number, List<Date[]> dates) throws ServiceException {
-		Assert.assertEquals(hotelService.showRoomBookings(room_number), dates);
+		List<Date[]> booking_dates = hotelService.showRoomBookings(room_number);
+		Assert.assertEquals(booking_dates.size(), dates.size());
+		for (int i = 0; i < dates.size(); i++) {
+			Assert.assertTrue(booking_dates.get(i)[0].toString().equals(dates.get(i)[0].toString()));
+			Assert.assertTrue(booking_dates.get(i)[1].toString().equals(dates.get(i)[1].toString()));
+		}
 	}
 	
 	@DataProvider
