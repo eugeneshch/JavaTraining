@@ -51,7 +51,9 @@ public class HotelServiceImpl implements HotelService {
 		DAOFactory factory = DAOFactory.getInstance();
 		UserDao userDao = factory.getUserDao();
 		try {
-			userDao.bookRoom(user_name, room_number, date_from, date_to);
+			if (userDao.checkRoomFreeByDate(room_number, date_from, date_to)) {
+				userDao.bookRoom(user_name, room_number, date_from, date_to);
+			}
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
