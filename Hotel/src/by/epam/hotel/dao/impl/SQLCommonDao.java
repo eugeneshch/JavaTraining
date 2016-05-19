@@ -16,30 +16,38 @@ public class SQLCommonDao implements CommonDao {
 	
 	@Override
 	public int authorize(String login, String password) throws DaoException {
-		Connection con;
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
 		try {
 			con = connectionPool.takeConnection();
-			Statement statement = con.createStatement();
+			statement = con.createStatement();
 			String query = "SELECT `u_role` FROM `users` WHERE `u_login`= '" + login + 
 			"' AND `u_password`= '" + password + "'";
-			ResultSet resultSet = statement.executeQuery(query);
+			resultSet = statement.executeQuery(query);
 			int role = -1; // unauthorized
 			if (resultSet.next()) {
 				role = resultSet.getInt("u_role");
 			}
-			connectionPool.closeConnection(con, statement, resultSet);
 			return role;
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new DaoException(e);
+		} finally {
+			try {
+				connectionPool.closeConnection(con, statement, resultSet);
+			} catch (ConnectionPoolException e) {
+				throw new DaoException(e);
+			}
 		}
 	}
 
 	@Override
 	public void register(String login, String password, String email, Guest guest) throws DaoException {
-		Connection con;
+		Connection con = null;
+		Statement statement = null;
 		try {
 			con = connectionPool.takeConnection();
-			Statement statement = con.createStatement();
+			statement = con.createStatement();
 			String update = "INSERT INTO `users` (`u_login`, `u_password`, `u_email`, `u_role`) VALUES ('"
 			+ login + "', '" + password + "', '" + email + "', '0')";
 			statement.executeUpdate(update);
@@ -47,9 +55,14 @@ public class SQLCommonDao implements CommonDao {
 			+ "((SELECT `u_id` FROM `users` WHERE `u_login`= '" + login + "'), '"
 			+ guest.getFName() + "', '" + guest.getLName() + "', '" + guest.getPhone() + "')";
 			statement.executeUpdate(update);
-			connectionPool.closeConnection(con, statement);
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new DaoException(e);
+		} finally {
+			try {
+				connectionPool.closeConnection(con, statement);
+			} catch (ConnectionPoolException e) {
+				throw new DaoException(e);
+			}
 		}	
 	}
 }

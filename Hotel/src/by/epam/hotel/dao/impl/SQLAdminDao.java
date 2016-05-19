@@ -17,25 +17,32 @@ public class SQLAdminDao implements AdminDao {
 
 	@Override
 	public Guest showGuestInfo(int room_number, Date date) throws DaoException {
-		Connection con;
+		Connection con = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
 		try {
 			con = connectionPool.takeConnection();
-			Statement statement = con.createStatement();
+			statement = con.createStatement();
 			String query = "SELECT * FROM `guests` WHERE `g_id`= "
 			+ "(SELECT `guest_id` FROM `bookings` WHERE `date_from` <= '" + date 
 			+ "' AND `date_to` >= '" + date + "' AND `room_id` = "
 			+ "(SELECT `r_id` FROM `rooms` WHERE `r_number` = '" + room_number + "'))";
-			ResultSet resultSet = statement.executeQuery(query);
+			resultSet = statement.executeQuery(query);
 			Guest guest = new Guest();
 			if (resultSet.next()) {
 				guest.setFName(resultSet.getString("g_fname"));
 				guest.setLName(resultSet.getString("g_lname"));
 				guest.setPhone(resultSet.getString("g_phone"));
 			}
-			connectionPool.closeConnection(con, statement, resultSet);
 			return guest;
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new DaoException(e);
+		} finally {
+			try {
+				connectionPool.closeConnection(con, statement, resultSet);
+			} catch (ConnectionPoolException e) {
+				throw new DaoException(e);
+			}
 		}
 	}
 
